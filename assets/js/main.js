@@ -25,14 +25,84 @@ function validateForm(){
   //Valores ingresados en el input
   var user=document.getElementById("usuario").value;
   var pass=document.getElementById("password").value;
-  var user=document.getElementById("usuario").value;
-  var pass=document.getElementById("password").value;
+
   //Guardando en el Local Storage
   localStorage.setItem("Username",user);
   localStorage.setItem("Password",pass);
-  var username=localStorage.getItem("Username");
-  var password=localStorage.getItem("Password");
-  document.getElementById("saludos").innerHTML=username;
 
 
 }
+
+var username=localStorage.getItem("Username");
+document.getElementById("saludos").innerHTML="Bienvenid@ "+username.toUpperCase();
+
+
+
+
+window.addEventListener('load',function(){
+  var enviar = document.getElementById('enviar');
+  enviar.addEventListener('click',function() {
+    var op = document.getElementById("privacidad").value;
+    localStorage.setItem("estado",estado);
+    var estado=localStorage.getItem("estado");
+    estado=document.getElementById("estado").value;
+    //document.getElementById("estado").value="";
+    var mAmigos="";
+    var mPublico="";
+    localStorage.setItem("mPublico",mPublico);
+    localStorage.setItem("mAmigos",mAmigos);
+    var mAmigos=localStorage.getItem("mAmigos");
+    var mPublico=localStorage.getItem("mPublico");
+
+  /*
+    Esto crea la siguiente estructura
+    <div>
+      <p>texto pasado a la funcion</p>
+      <a href="#">Eliminar</a>
+    </div>
+  */
+  function createPost(textos) {
+    var post = document.createElement('div');
+    var texto = document.createElement('input');
+    
+    post;
+    if(op=="amigos"){
+      post.className="publicacionA";
+    }
+    else{
+      post.className="publicacionB";
+    }
+    texto.innerHTML = textos;
+    post.style= "div-coder";
+    var eliminar = document.createElement('a');
+    var editar=document.createElement('a');
+    editar.href="";
+    editar.innerHTML="Editar  ";
+    //Editar la publicaciòn
+    editar.addEventListener('click',function(e) {
+      e.preventDefault();
+      var postParent = e.target.parent; // Devuelve el padre
+  //    document.getElementById("estado").value="gtttt";
+      texto.innerHTML = "editar";
+
+    });
+
+    post.appendChild(texto);
+    post.appendChild(editar);
+    eliminar.href="";
+    eliminar.innerHTML = "Eliminar";
+    eliminar.addEventListener('click',function(e) {
+      e.preventDefault();
+      var postParent = e.target.parent; // Devuelve el padre
+      alert("elei");
+    });
+    post.appendChild(eliminar);
+
+    return post;
+  }
+
+  var resultado = document.getElementById('resultado');
+  resultado.appendChild(createPost(estado));
+
+  });
+});
